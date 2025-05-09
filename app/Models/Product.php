@@ -7,9 +7,13 @@ use App\Models\Category;
 use App\Models\Size;
 use App\Models\Brand;
 use App\Models\Team;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+
 
 class Product extends Model
 {
+    use HasFactory;
+    
     protected $fillable = [
         'product_name',
         'description',

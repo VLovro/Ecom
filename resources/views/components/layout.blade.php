@@ -78,9 +78,9 @@
   
         <!-- Desktop utilities (right) -->
         <div class="hidden lg:flex lg:items-center lg:space-x-6">
-          <!-- Search -->
+          <!-- Search 
           <input type="search" placeholder="Search"
-                 class="px-2 py-1 border rounded text-sm focus:ring"/>
+                 class="px-2 py-1 border rounded text-sm focus:ring"/>-->
           <!-- Profile -->
           <div class="relative" x-data="{ open: false }" @mouseleave="open=false">
             <button @click="open=!open" class="px-3 py-2 text-gray-700 hover:text-blue-600">Profile</button>
@@ -123,6 +123,8 @@
             <li><a href="#" class="block px-3 py-2 rounded hover:bg-gray-100">Basketballs</a></li>
             <li><a href="#" class="block px-3 py-2 rounded hover:bg-gray-100">Bags & Backpacks</a></li>
             <li><a href="#" class="block px-3 py-2 rounded hover:bg-gray-100">Socks</a></li>
+            <li><a href="#" class="block px-3 py-2 rounded hover:bg-gray-100">Hats</a></li>
+            <li><a href="#" class="block px-3 py-2 rounded hover:bg-gray-100">Headbands</a></li>
           </ul>
         </li>
         <!-- Apparel w/ submenu -->

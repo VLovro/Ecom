@@ -50,7 +50,7 @@
             <div class="group relative">
               <div class="w-full aspect-square overflow-hidden rounded-lg bg-white">
                 <img
-                  src="{{ asset('images/lebron.jpg') }}"
+                  src="{{ asset('images/acessories.jpg') }}"
                   alt="Accessories"
                   class="w-full h-full object-cover group-hover:opacity-75"
                 />
