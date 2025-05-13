@@ -44,6 +44,8 @@ if ($category) {
 
 $products = $query->paginate(12);
 
+
+
 return view('products.index', [
     'products'         => $products,
     'groups'           => $validGroups,
@@ -52,4 +54,17 @@ return view('products.index', [
     'currentCategory'  => $category,
 ]);
 }
+
+public function show(int $product)
+{
+    
+    $item = Product::with(['brand','team','categories','sizes'])
+                   ->findOrFail($product);
+
+   
+    return view('products.productdetail', [
+        'product' => $item,
+    ]);
+}
+
 }

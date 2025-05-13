@@ -6,6 +6,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use App\Models\Product;
 
 class User extends Authenticatable
 {
@@ -33,6 +34,12 @@ class User extends Authenticatable
     {
         return $this->role === 'user';
     }
+
+    public function wishlist()
+{
+    return $this->belongsToMany(
+        Product::class,'wishlists')->withTimestamps();
+}
 
 
     /**

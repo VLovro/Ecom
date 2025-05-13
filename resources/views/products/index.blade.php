@@ -11,7 +11,7 @@
       
       <div class="lg:col-span-3 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
         @foreach($products as $product)
-          <div class="border rounded-lg overflow-hidden bg-white">
+          <a href="{{ route('products.show', $product->id) }}" class="block border rounded-lg overflow-hidden bg-white hover:shadow-md hover:bg-gray-100 transition">
             <div class="w-full aspect-square overflow-hidden">
               <img src="{{ asset($product->image_path) }}"
                    alt="{{ $product->product_name }}"
@@ -23,14 +23,14 @@
                 ${{ number_format($product->price,2) }}
               </p>
             </div>
-          </div>
+          </a>
         @endforeach
       </div>
 
-    </div> {{-- end main grid --}}
+    </div>
 
-    {{-- 2) Pagination sits *outside* that grid, below both sidebar & products --}}
-    <div class="mt-6 flex justify-center">
+    {{-- Sidebar --}}
+    <div class="mt-6">
       {{ $products->links() }}
     </div>
   </div>

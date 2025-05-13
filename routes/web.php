@@ -28,4 +28,10 @@ Route::middleware([AdminMiddleware::class])->group(function () {
 });
 
 
+Route::get('products/{product}', [ProductController::class, 'show'])
+     ->whereNumber('product')      
+     ->name('products.show');
+
+
 Route::get('products/{group?}/{category?}', [ProductController::class,'index'])->name('products.index');
+
