@@ -3,26 +3,22 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
-  <!-- Tailwind CSS -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Alpine.js for dropdowns & mobile toggle -->
-  <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
-  
   <title>HoopsShop</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </head>
-<body class="h-full">
+<body class="h-full flex flex-col min-h-screen">
 
   <!-- NAVBAR -->
-  <nav x-data="{ mobileOpen: false }" class="bg-white border-b">
+  <nav x-data="{ mobileOpen: false }" class="bg-white border-b overflow-visible">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex h-16 items-center">
-  
+
         <!-- Brand -->
         <div class="flex-shrink-0">
-          <a href="#" class="text-xl font-bold">HoopsShop</a>
+          <a href="/" class="text-xl font-bold">HoopsShop</a>
         </div>
-  
+
         <!-- Mobile toggle -->
         <div class="ml-2 lg:hidden">
           <button @click="mobileOpen = !mobileOpen" class="p-2 rounded-md focus:outline-none">
@@ -34,71 +30,172 @@
             </svg>
           </button>
         </div>
-  
+
         <!-- Desktop main nav (centered) -->
         <div class="hidden lg:flex lg:flex-1 lg:justify-center">
           <ul class="flex space-x-8">
+            {{-- Shoes --}}
             <li class="relative" x-data="{ open: false }" @mouseleave="open=false">
-              <button @mouseover="open=true" @click="open=!open"
-                      class="px-3 py-2 text-gray-700 hover:text-blue-600">Shoes</button>
-              <ul x-show="open" x-transition class="absolute mt-2 w-40 bg-white border rounded shadow">
-                <li><a href="#" class="block px-4 py-2 hover:bg-gray-100">Basketball</a></li>
-                <li><a href="#" class="block px-4 py-2 hover:bg-gray-100">Lifestyle</a></li>
+              <a href="{{ route('products.index',['group'=>'shoes']) }}"
+                 @mouseover="open=true"
+                 class="inline-block px-3 py-2 text-gray-700 hover:text-blue-600">
+                Shoes
+              </a>
+              <ul x-show="open" x-transition class="absolute z-50 top-full w-40 bg-white border rounded shadow">
+                <li>
+                  <a href="{{ route('products.index',['group'=>'shoes','category'=>'Basketball Shoes']) }}"
+                     @click="open=false"
+                     class="block px-4 py-2 hover:bg-gray-100">
+                    Basketball Shoes
+                  </a>
+                </li>
+                <li>
+                  <a href="{{ route('products.index',['group'=>'shoes','category'=>'Lifestyle Shoes']) }}"
+                     @click="open=false"
+                     class="block px-4 py-2 hover:bg-gray-100">
+                    Lifestyle Shoes
+                  </a>
+                </li>
               </ul>
             </li>
+
+            {{-- Accessories --}}
             <li class="relative" x-data="{ open: false }" @mouseleave="open=false">
-              <button @mouseover="open=true" @click="open=!open"
-                      class="px-3 py-2 text-gray-700 hover:text-blue-600">Accessories</button>
-              <ul x-show="open" x-transition class="absolute mt-2 w-48 bg-white border rounded shadow">
-                <li><a href="#" class="block px-4 py-2 hover:bg-gray-100">Basketballs</a></li>
-                <li><a href="#" class="block px-4 py-2 hover:bg-gray-100">Bags & Backpacks</a></li>
-                <li><a href="#" class="block px-4 py-2 hover:bg-gray-100">Socks</a></li>
+              <a href="{{ route('products.index',['group'=>'accessories']) }}"
+                 @mouseover="open=true"
+                 class="inline-block px-3 py-2 text-gray-700 hover:text-blue-600">
+                Accessories
+              </a>
+              <ul x-show="open" x-transition class="absolute z-50 top-full w-40 bg-white border rounded shadow">
+                <li>
+                  <a href="{{ route('products.index',['group'=>'accessories','category'=>'Basketballs']) }}"
+                     @click="open=false"
+                     class="block px-4 py-2 hover:bg-gray-100">
+                    Basketballs
+                  </a>
+                </li>
+                <li>
+                  <a href="{{ route('products.index',['group'=>'accessories','category'=>'Bags & Backpacks']) }}"
+                     @click="open=false"
+                     class="block px-4 py-2 hover:bg-gray-100">
+                    Bags &amp; Backpacks
+                  </a>
+                </li>
+                <li>
+                  <a href="{{ route('products.index',['group'=>'accessories','category'=>'Socks']) }}"
+                     @click="open=false"
+                     class="block px-4 py-2 hover:bg-gray-100">
+                    Socks
+                  </a>
+                </li>
+                <li>
+                  <a href="{{ route('products.index',['group'=>'accessories','category'=>'Headbands']) }}"
+                     @click="open=false"
+                     class="block px-4 py-2 hover:bg-gray-100">
+                    Headbands
+                  </a>
+                </li>
+                <li>
+                  <a href="{{ route('products.index',['group'=>'accessories','category'=>'Hats']) }}"
+                     @click="open=false"
+                     class="block px-4 py-2 hover:bg-gray-100">
+                    Hats
+                  </a>
+                </li>
               </ul>
             </li>
+
+            {{-- Apparel --}}
             <li class="relative" x-data="{ open: false }" @mouseleave="open=false">
-              <button @mouseover="open=true" @click="open=!open"
-                      class="px-3 py-2 text-gray-700 hover:text-blue-600">Apparel</button>
-              <ul x-show="open" x-transition class="absolute mt-2 w-48 bg-white border rounded shadow">
-                <li><a href="#" class="block px-4 py-2 hover:bg-gray-100">T‑shirts</a></li>
-                <li><a href="#" class="block px-4 py-2 hover:bg-gray-100">Hoodies & Sweatshirts</a></li>
-                <li><a href="#" class="block px-4 py-2 hover:bg-gray-100">Shorts</a></li>
-                <li><a href="#" class="block px-4 py-2 hover:bg-gray-100">Jerseys</a></li>
+              <a href="{{ route('products.index',['group'=>'apparel']) }}"
+                 @mouseover="open=true"
+                 class="inline-block px-3 py-2 text-gray-700 hover:text-blue-600">
+                Apparel
+              </a>
+              <ul x-show="open" x-transition class="absolute z-50 top-full w-48 bg-white border rounded shadow">
+                <li>
+                  <a href="{{ route('products.index',['group'=>'apparel','category'=>'T‑shirts']) }}"
+                     @click="open=false"
+                     class="block px-4 py-2 hover:bg-gray-100">
+                    T-shirts
+                  </a>
+                </li>
+                <li>
+                  <a href="{{ route('products.index',['group'=>'apparel','category'=>'Hoodies & Sweatshirts']) }}"
+                     @click="open=false"
+                     class="block px-4 py-2 hover:bg-gray-100">
+                    Hoodies &amp; Sweatshirts
+                  </a>
+                </li>
+                <li>
+                  <a href="{{ route('products.index',['group'=>'apparel','category'=>'Shorts']) }}"
+                     @click="open=false"
+                     class="block px-4 py-2 hover:bg-gray-100">
+                    Shorts
+                  </a>
+                </li>
+                <li>
+                  <a href="{{ route('products.index',['group'=>'apparel','category'=>'Jerseys']) }}"
+                     @click="open=false"
+                     class="block px-4 py-2 hover:bg-gray-100">
+                    Jerseys
+                  </a>
+                </li>
               </ul>
             </li>
+
+            {{-- Collectibles --}}
             <li class="relative" x-data="{ open: false }" @mouseleave="open=false">
-              <button @mouseover="open=true" @click="open=!open"
-                      class="px-3 py-2 text-gray-700 hover:text-blue-600">Collectibles</button>
-              <ul x-show="open" x-transition class="absolute mt-2 w-40 bg-white border rounded shadow">
-                <li><a href="#" class="block px-4 py-2 hover:bg-gray-100">Art</a></li>
-                <li><a href="#" class="block px-4 py-2 hover:bg-gray-100">Figures</a></li>
+              <a href="{{ route('products.index',['group'=>'collectibles']) }}"
+                 @mouseover="open=true"
+                 class="inline-block px-3 py-2 text-gray-700 hover:text-blue-600">
+                Collectibles
+              </a>
+              <ul x-show="open" x-transition class="absolute z-50 top-full w-40 bg-white border rounded shadow">
+                <li>
+                  <a href="{{ route('products.index',['group'=>'collectibles','category'=>'Art']) }}"
+                     @click="open=false"
+                     class="block px-4 py-2 hover:bg-gray-100">
+                    Art
+                  </a>
+                </li>
+                <li>
+                  <a href="{{ route('products.index',['group'=>'collectibles','category'=>'Figures']) }}"
+                     @click="open=false"
+                     class="block px-4 py-2 hover:bg-gray-100">
+                    Figures
+                  </a>
+                </li>
               </ul>
             </li>
           </ul>
         </div>
-  
+
         <!-- Desktop utilities (right) -->
         <div class="hidden lg:flex lg:items-center lg:space-x-6">
-          <!-- Search 
-          <input type="search" placeholder="Search"
-                 class="px-2 py-1 border rounded text-sm focus:ring"/>-->
-          <!-- Profile -->
+          <!-- Profile dropdown -->
           <div class="relative" x-data="{ open: false }" @mouseleave="open=false">
-            <button @click="open=!open" class="px-3 py-2 text-gray-700 hover:text-blue-600">Profile</button>
-            <ul x-show="open" x-transition class="absolute right-0 mt-2 w-40 bg-white border rounded shadow">
+            <button @click="open=!open" class="px-3 py-2 text-gray-700 hover:text-blue-600">
+              Profile
+            </button>
+            <ul x-show="open" x-transition class="absolute z-50 right-0 top-full w-40 bg-white border rounded shadow">
               <li><a href="#" class="block px-4 py-2 hover:bg-gray-100">My Orders</a></li>
               <li><a href="#" class="block px-4 py-2 hover:bg-gray-100">Logout</a></li>
             </ul>
           </div>
-          <!-- Cart -->
-          <a href="#" class="px-3 py-2 text-gray-700 hover:text-blue-600">Cart</a>
+
+          <!-- Cart link -->
+          <a href="#" class="px-3 py-2 text-gray-700 hover:text-blue-600">
+            Cart
+          </a>
         </div>
       </div>
     </div>
-  
 
+    <!-- Mobile menu -->
     <div x-show="mobileOpen" x-transition class="lg:hidden border-t">
       <ul class="space-y-1 px-2 py-3">
-        <!-- Shoes w/ submenu -->
+        <!-- Shoes (mobile) -->
         <li x-data="{ open: false }">
           <button @click="open=!open" class="w-full flex justify-between px-3 py-2 rounded hover:bg-gray-100">
             Shoes
@@ -107,11 +204,21 @@
             </svg>
           </button>
           <ul x-show="open" class="pl-4 space-y-1">
-            <li><a href="#" class="block px-3 py-2 rounded hover:bg-gray-100">Basketball</a></li>
-            <li><a href="#" class="block px-3 py-2 rounded hover:bg-gray-100">Lifestyle</a></li>
+            <li>
+              <a href="{{ route('products.index',['group'=>'shoes','category'=>'Basketball Shoes']) }}"
+                 class="block px-3 py-2 rounded hover:bg-gray-100">
+                Basketball Shoes
+              </a>
+            </li>
+            <li>
+              <a href="{{ route('products.index',['group'=>'shoes','category'=>'Lifestyle Shoes']) }}"
+                 class="block px-3 py-2 rounded hover:bg-gray-100">
+                Lifestyle Shoes
+              </a>
+            </li>
           </ul>
         </li>
-        <!-- Accessories w/ submenu -->
+        <!-- Accessories (mobile) -->
         <li x-data="{ open: false }">
           <button @click="open=!open" class="w-full flex justify-between px-3 py-2 rounded hover:bg-gray-100">
             Accessories
@@ -120,14 +227,39 @@
             </svg>
           </button>
           <ul x-show="open" class="pl-4 space-y-1">
-            <li><a href="#" class="block px-3 py-2 rounded hover:bg-gray-100">Basketballs</a></li>
-            <li><a href="#" class="block px-3 py-2 rounded hover:bg-gray-100">Bags & Backpacks</a></li>
-            <li><a href="#" class="block px-3 py-2 rounded hover:bg-gray-100">Socks</a></li>
-            <li><a href="#" class="block px-3 py-2 rounded hover:bg-gray-100">Hats</a></li>
-            <li><a href="#" class="block px-3 py-2 rounded hover:bg-gray-100">Headbands</a></li>
+            <li>
+              <a href="{{ route('products.index',['group'=>'accessories','category'=>'Basketballs']) }}"
+                 class="block px-3 py-2 rounded hover:bg-gray-100">
+                Basketballs
+              </a>
+            </li>
+            <li>
+              <a href="{{ route('products.index',['group'=>'accessories','category'=>'Bags & Backpacks']) }}"
+                 class="block px-3 py-2 rounded hover:bg-gray-100">
+                Bags &amp; Backpacks
+              </a>
+            </li>
+            <li>
+              <a href="{{ route('products.index',['group'=>'accessories','category'=>'Socks']) }}"
+                 class="block px-3 py-2 rounded hover:bg-gray-100">
+                Socks
+              </a>
+            </li>
+            <li>
+              <a href="{{ route('products.index',['group'=>'accessories','category'=>'Headbands']) }}"
+                 class="block px-3 py-2 rounded hover:bg-gray-100">
+                Headbands
+              </a>
+            </li>
+            <li>
+              <a href="{{ route('products.index',['group'=>'accessories','category'=>'Hats']) }}"
+                 class="block px-3 py-2 rounded hover:bg-gray-100">
+                Hats
+              </a>
+            </li>
           </ul>
         </li>
-        <!-- Apparel w/ submenu -->
+        <!-- Apparel (mobile) -->
         <li x-data="{ open: false }">
           <button @click="open=!open" class="w-full flex justify-between px-3 py-2 rounded hover:bg-gray-100">
             Apparel
@@ -136,13 +268,33 @@
             </svg>
           </button>
           <ul x-show="open" class="pl-4 space-y-1">
-            <li><a href="#" class="block px-3 py-2 rounded hover:bg-gray-100">T‑shirts</a></li>
-            <li><a href="#" class="block px-3 py-2 rounded hover:bg-gray-100">Hoodies & Sweatshirts</a></li>
-            <li><a href="#" class="block px-3 py-2 rounded hover:bg-gray-100">Shorts</a></li>
-            <li><a href="#" class="block px-3 py-2 rounded hover:bg-gray-100">Jerseys</a></li>
+            <li>
+              <a href="{{ route('products.index',['group'=>'apparel','category'=>'T‑shirts']) }}"
+                 class="block px-3 py-2 rounded hover:bg-gray-100">
+                T-shirts
+              </a>
+            </li>
+            <li>
+              <a href="{{ route('products.index',['group'=>'apparel','category'=>'Hoodies & Sweatshirts']) }}"
+                 class="block px-3 py-2 rounded hover:bg-gray-100">
+                Hoodies &amp; Sweatshirts
+              </a>
+            </li>
+            <li>
+              <a href="{{ route('products.index',['group'=>'apparel','category'=>'Shorts']) }}"
+                 class="block px-3 py-2 rounded hover:bg-gray-100">
+                Shorts
+              </a>
+            </li>
+            <li>
+              <a href="{{ route('products.index',['group'=>'apparel','category'=>'Jerseys']) }}"
+                 class="block px-3 py-2 rounded hover:bg-gray-100">
+                Jerseys
+              </a>
+            </li>
           </ul>
         </li>
-        <!-- Collectibles w/ submenu -->
+        <!-- Collectibles (mobile) -->
         <li x-data="{ open: false }">
           <button @click="open=!open" class="w-full flex justify-between px-3 py-2 rounded hover:bg-gray-100">
             Collectibles
@@ -151,8 +303,18 @@
             </svg>
           </button>
           <ul x-show="open" class="pl-4 space-y-1">
-            <li><a href="#" class="block px-3 py-2 rounded hover:bg-gray-100">Art</a></li>
-            <li><a href="#" class="block px-3 py-2 rounded hover:bg-gray-100">Figures</a></li>
+            <li>
+              <a href="{{ route('products.index',['group'=>'collectibles','category'=>'Art']) }}"
+                 class="block px-3 py-2 rounded hover:bg-gray-100">
+                Art
+              </a>
+            </li>
+            <li>
+              <a href="{{ route('products.index',['group'=>'collectibles','category'=>'Figures']) }}"
+                 class="block px-3 py-2 rounded hover:bg-gray-100">
+                Figures
+              </a>
+            </li>
           </ul>
         </li>
         <!-- Profile & Cart -->
@@ -161,12 +323,14 @@
       </ul>
     </div>
   </nav>
-  
+
   <!-- page content -->
-  <main class="container mx-auto py-4">
+  <main class="container mx-auto py-4 flex-grow">
     {{ $slot }}
   </main>
-  <footer class="bg-gray-800 text-gray-200 pt-12">
+
+  <!-- FOOTER -->
+    <footer class="bg-gray-800 text-gray-200 pt-12">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
   
       <!-- Customer Service -->
@@ -228,6 +392,5 @@
       &copy; 2025 HoopsShop. All rights reserved.
     </div>
   </footer>
-  
 </body>
 </html>

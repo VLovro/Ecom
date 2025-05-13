@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RegisteredUserController;
 use App\Http\Controllers\LoginUserController;
 use App\Http\Middleware\AdminMiddleware;
+use App\Http\Controllers\ProductController;
 
 
 Route::get('/', function () {
@@ -23,5 +24,8 @@ Route::middleware([AdminMiddleware::class])->group(function () {
         return view('admin.dashboard');
     });
 
-    Route::resource('/products', ProductController::class);
+    Route::resource('/products', ProductController::class)->except(['index','show']);
 });
+
+
+Route::get('products/{group?}/{category?}', [ProductController::class,'index'])->name('products.index');

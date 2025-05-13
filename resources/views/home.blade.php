@@ -8,6 +8,7 @@
   
             <!-- Card 1: Shoes -->
             <div class="group relative">
+              <a href="{{ route('products.index', ['group' => 'shoes']) }}" class="block group">
               <div class="w-full aspect-square overflow-hidden rounded-lg bg-white">
                 <img
                   src="{{ asset('images/patike.jpg') }}"
@@ -15,19 +16,17 @@
                   class="w-full h-full object-cover group-hover:opacity-75"
                 />
               </div>
-              <h3 class="mt-6 text-sm text-gray-500">
-                <a href="#">
-                  <span class="absolute inset-0"></span>
-                  Shoes
-                </a>
-              </h3>
+              
+              <h3 class="mt-6 text-sm text-gray-500">Shoes</h3>
               <p class="text-base font-semibold text-gray-900">
                 Explore lifestyle and basketball shoes
               </p>
+              </a>
             </div>
   
             <!-- Card 2: Collectibles -->
             <div class="group relative">
+              <a href="{{ route('products.index', ['group' => 'collectibles']) }}" class="block group">
               <div class="w-full aspect-square overflow-hidden rounded-lg bg-white">
                 <img
                   src="{{ asset('images/cards.jpg') }}"
@@ -35,19 +34,16 @@
                   class="w-full h-full object-cover group-hover:opacity-75"
                 />
               </div>
-              <h3 class="mt-6 text-sm text-gray-500">
-                <a href="#">
-                  <span class="absolute inset-0"></span>
-                  Collectibles
-                </a>
-              </h3>
+              <h3 class="mt-6 text-sm text-gray-500">Collectibles</h3>
               <p class="text-base font-semibold text-gray-900">
                 Memorabilia & trading cards
               </p>
+              </a>
             </div>
   
             <!-- Card 3: Accessories -->
             <div class="group relative">
+              <a href="{{ route('products.index', ['group' => 'accessories']) }}" class="block group">
               <div class="w-full aspect-square overflow-hidden rounded-lg bg-white">
                 <img
                   src="{{ asset('images/acessories.jpg') }}"
@@ -55,19 +51,17 @@
                   class="w-full h-full object-cover group-hover:opacity-75"
                 />
               </div>
-              <h3 class="mt-6 text-sm text-gray-500">
-                <a href="#">
-                  <span class="absolute inset-0"></span>
-                  Accessories
-                </a>
+              <h3 class="mt-6 text-sm text-gray-500">Accessories
               </h3>
               <p class="text-base font-semibold text-gray-900">
                 Explore various accessories
               </p>
+              </a>
             </div>
   
             <!-- Card 4: Apparel -->
             <div class="group relative">
+              <a href="{{ route('products.index', ['group' => 'apparel']) }}" class="block group">
               <div class="w-full aspect-square overflow-hidden rounded-lg bg-white">
                 <img
                   src="{{ asset('images/timovi.png') }}"
@@ -76,10 +70,7 @@
                 />
               </div>
               <h3 class="mt-6 text-sm text-gray-500">
-                <a href="#">
-                  <span class="absolute inset-0"></span>
-                  Apparel
-                </a>
+                Apparel
               </h3>
               <p class="text-base font-semibold text-gray-900">
                 Shop team apparel

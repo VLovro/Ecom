@@ -21,7 +21,7 @@ class ProductFactory extends Factory
             'stock'        => $this->faker->numberBetween(0, 100), 
             'brand_id'     => Brand::inRandomOrder()->first()->id,
             'team_id'      => Team::inRandomOrder()->first()->id,
-            'image_path'   => $this->faker->imageUrl(640, 480, 'sports', true),
+            'image_path' => 'https://picsum.photos/seed/'.$this->faker->unique()->numberBetween(1,1000).'/200/150',
         ];
     }
 }
