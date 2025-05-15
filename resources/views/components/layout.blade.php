@@ -7,7 +7,7 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </head>
-<body class="h-full flex flex-col min-h-screen">
+<body class="h-full flex flex-col min-h-screen bg-gray-50">
 
   <!-- NAVBAR -->
   <nav x-data="{ mobileOpen: false }" class="bg-white border-b overflow-visible">
@@ -185,9 +185,7 @@
           </div>
 
           <!-- Cart link -->
-          <a href="#" class="px-3 py-2 text-gray-700 hover:text-blue-600">
-            Cart
-          </a>
+          <x-cartnav />
         </div>
       </div>
     </div>
@@ -319,7 +317,7 @@
         </li>
         <!-- Profile & Cart -->
         <li><a href="#" class="block px-3 py-2 rounded hover:bg-gray-100">Profile</a></li>
-        <li><a href="#" class="block px-3 py-2 rounded hover:bg-gray-100">Cart</a></li>
+        <li> <x-cartnav /> </li>
       </ul>
     </div>
   </nav>

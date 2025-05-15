@@ -5,7 +5,7 @@ use App\Http\Controllers\RegisteredUserController;
 use App\Http\Controllers\LoginUserController;
 use App\Http\Middleware\AdminMiddleware;
 use App\Http\Controllers\ProductController;
-
+use App\Http\Controllers\CartController;
 
 Route::get('/', function () {
     return view('home');
@@ -34,4 +34,16 @@ Route::get('products/{product}', [ProductController::class, 'show'])
 
 
 Route::get('products/{group?}/{category?}', [ProductController::class,'index'])->name('products.index');
+
+
+//Za cart
+Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
+Route::post('/cart/add', [CartController::class, 'add_to_cart'])->name('cart.add');
+Route::put('cart/increase-quantity/{rowId}',[CartController::class, 'increase_cart_quantity'])->name('cart.qty.increase');
+Route::put('cart/decrease-quantity/{rowId}',[CartController::class, 'decrease_cart_quantity'])->name('cart.qty.decrease');
+Route::delete('cart/remove/{rowId}',[CartController::class, 'remove_item'])->name('cart.remove');
+
+Route::get('/checkout', function(){
+    return view('products.checkout');
+})->name('products.checkout');
 

@@ -75,6 +75,7 @@
               <p class="text-base font-semibold text-gray-900">
                 Shop team apparel
               </p>
+              </a>
             </div>
   
           </div>
