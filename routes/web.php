@@ -43,7 +43,5 @@ Route::put('cart/increase-quantity/{rowId}',[CartController::class, 'increase_ca
 Route::put('cart/decrease-quantity/{rowId}',[CartController::class, 'decrease_cart_quantity'])->name('cart.qty.decrease');
 Route::delete('cart/remove/{rowId}',[CartController::class, 'remove_item'])->name('cart.remove');
 
-Route::get('/checkout', function(){
-    return view('products.checkout');
-})->name('products.checkout');
+Route::get('/checkout', [CartController::class, 'showCheckoutPage'])->name('products.checkout');
 

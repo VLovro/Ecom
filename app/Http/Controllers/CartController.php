@@ -60,6 +60,11 @@ class CartController extends Controller
         return redirect()->back();
     }
 
+    public function showCheckoutPage(){
+        $items = Cart::instance('cart')->content();
+         return view('products.checkout', compact('items'));
+    }
+
 
 
 }

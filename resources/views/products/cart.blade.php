@@ -75,9 +75,6 @@
                                 </div> 
                             @endforeach
                         </div> 
-
-                        {{-- Cart table footer (like update cart button) will go here later --}}
-                        {{-- This might also be a div outside the space-y-4 container --}}
                     </div>
                     <div class="lg:col-span-1 bg-white p-6 rounded-lg shadow-md">
                       <div class="flex justify-between text-gray-700">
