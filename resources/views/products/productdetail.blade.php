@@ -1,6 +1,20 @@
 <x-layout heading="{{ $product->product_name }}">
+
+  @if (session('success'))
+    <input type="hidden" id="flash-success" value="{{ session('success') }}">
+@endif
+  
+  <div id="toast-notification" class="fixed top-4 right-4 z-50 opacity-0 pointer-events-none transition-opacity duration-300">
+    <div class="bg-green-500 text-white px-6 py-3 rounded-md shadow-lg flex items-center space-x-2">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <span id="toast-message"></span>
+        </div>
+    </div>
+  
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-2 gap-6">
-    <!-- Left column: image -->
+    <!-- Liva strana(slika) -->
     <div>
       <img
         src="{{ asset($product->image_path) }}"
@@ -41,7 +55,7 @@
   <p class="mt-2 text-sm text-red-500" x-show="!selectedSize">
     Please select a size to add this item to your cart.</p>
   <div class="mt-4 flex items-center space-x-4">
-  <form action="{{ route('cart.add') }}" method="POST" class=" flex items-center space-x-4">
+  <form id="add-to-cart-form" action="{{ route('cart.add') }}" method="POST" class=" flex items-center space-x-4">
     @csrf
     <input type="hidden" name="id"      value="{{ $product->id }}">
     <input type="hidden" name="name"    value="{{ $product->product_name }}">
@@ -50,8 +64,8 @@
 
     {{-- Quantity selector --}}
     <div class="flex-none">
-      <div class="inline-flex items-center border rounded-full overflow-hidden h-14">
-        <button type="button" id="decrement-qty" class="px-4">–</button>
+      <div class="inline-flex items-center border rounded-full border-black bg-blue-700 overflow-hidden h-14">
+        <button type="button" id="decrement-qty" class="px-4 text-white">–</button>
         <input
           type="text"
           name="qty"
@@ -59,9 +73,9 @@
           readonly
           id="quantity-input"
           data-stock="{{ $product->stock }}"
-          class="w-12 text-center border-l border-r focus:outline-none"
+          class="w-12 text-center border-l border-r bg-blue-700 text-white focus:outline-none"
         />
-        <button type="button" id="increment-qty" class="px-4">+</button>
+        <button type="button" id="increment-qty" class="px-4 text-white">+</button>
       </div>
     </div>
 
@@ -80,7 +94,7 @@
     @click="saved = !saved"
     :class="saved
       ? 'bg-blue-600 border-blue-600'
-      : 'border border-gray-300 hover:bg-gray-100'"
+      : 'border border-black hover:bg-gray-100'"
     class="flex-none h-14 w-14 flex items-center justify-center rounded-full transition"
     aria-label="Add to wishlist"
   >
@@ -125,6 +139,27 @@
     }
 
   });
+// --- Dio za toast notifikaciju --- //
+
+   document.addEventListener('DOMContentLoaded', function() {
+                    const toastNotification = document.getElementById('toast-notification');
+                    const toastMessageSpan = document.getElementById('toast-message');
+                    const flashSuccessInput = document.getElementById('flash-success');
+                    if (flashSuccessInput && flashSuccessInput.value) {
+                       
+                        toastMessageSpan.textContent = flashSuccessInput.value;
+                        toastNotification.classList.remove('opacity-0', 'pointer-events-none');
+                        toastNotification.classList.add('opacity-100');
+
+                      
+                        setTimeout(function() {
+                            toastNotification.classList.remove('opacity-100');
+                            toastNotification.classList.add('opacity-0', 'pointer-events-none');
+                        }, 3000); 
+                    }
+
+                });
+
 </script>
     
   </div>

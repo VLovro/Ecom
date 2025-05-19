@@ -35,7 +35,7 @@ class CartController extends Controller
                 'size_label' => $size->label,
             ]
         )->associate('App\Models\Product');
-        return redirect()->back();
+         return redirect()->back()->with('success', 'Product added to cart!');
     }
 
     public function increase_cart_quantity($rowId)
