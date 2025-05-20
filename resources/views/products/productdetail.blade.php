@@ -15,13 +15,13 @@
   
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-2 gap-6">
     <!-- Liva strana(slika) -->
-    <div>
-      <img
-        src="{{ asset($product->image_path) }}"
-        alt="{{ $product->product_name }}"
-        class="w-full h-auto rounded-lg"
-      />
-    </div>
+  <div>
+  <img src="{{ Str::startsWith($product->image_path, ['http://', 'https://'])
+    ? $product->image_path
+    : asset('storage/' . $product->image_path)}}" 
+    alt="{{ $product->product_name }}"
+    class="w-full h-auto rounded-lg">
+</div>
 
     
     <div>

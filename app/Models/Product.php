@@ -35,7 +35,7 @@ class Product extends Model
         return $this->belongsToMany(Category::class);
     }
     public function sizes(){
-        return $this-> belongsToMany(Size::class);
+        return $this-> belongsToMany(Size::class)->withPivot('stock');
     }
     public function brand()
 {

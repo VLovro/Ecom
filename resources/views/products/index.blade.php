@@ -13,8 +13,10 @@
         @foreach($products as $product)
           <a href="{{ route('products.show', $product->id) }}" class="block border rounded-lg overflow-hidden bg-white hover:shadow-md hover:bg-gray-100 transition">
             <div class="w-full aspect-square overflow-hidden">
-              <img src="{{ asset($product->image_path) }}"
-                   alt="{{ $product->product_name }}"
+               <img src="{{ Str::startsWith($product->image_path, ['http://', 'https://'])
+    ? $product->image_path
+    : asset('storage/' . $product->image_path)}}" 
+    alt="{{ $product->product_name }}"
                    class="w-full h-full object-cover" />
             </div>
             <div class="p-4">
