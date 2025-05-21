@@ -36,7 +36,8 @@
                                             <form method="POST" action="{{ route('cart.qty.decrease', $item->rowId) }}" style="display: inline-flex;" class="flex-shrink-0">
                                                 @csrf
                                                 @method('PUT')
-                                                <button type="submit" class="px-3 h-full flex items-center justify-center border-r w-8 border-gray-300 text-gray-700 hover:bg-gray-100 transition qty-control_reduce">
+                                                <button type="submit" class="px-3 h-full flex items-center justify-center border-r w-8 border-gray-300 text-gray-700 hover:bg-gray-100 transition qty-control_reduce"
+                                                      {{ $item->qty <= 1 ? 'disabled' : '' }}>
                                                     –
                                                 </button>
                                             </form>

@@ -6,6 +6,7 @@ use App\Http\Controllers\LoginUserController;
 use App\Http\Middleware\AdminMiddleware;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\OrderController;
 
 Route::get('/', function () {
     return view('home');
@@ -45,3 +46,8 @@ Route::delete('cart/remove/{rowId}',[CartController::class, 'remove_item'])->nam
 
 Route::get('/checkout', [CartController::class, 'showCheckoutPage'])->name('products.checkout');
 
+Route::post('/checkout/plac-order', [OrderController::class, 'placeOrder'])->name('checkout.placeOrder');
+
+Route::get('/order-success', function () {
+    return view('products.success'); // We'll create this view next
+})->name('order.success');

@@ -1,7 +1,7 @@
 <x-layout heading="Checkout">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">    
         <h1 class="text-2xl font-bold text-gray-900 mb-6">Checkout</h1>
-        <form action="#" method="POST"> 
+        <form action="{{ route('checkout.placeOrder') }}" method="POST"> 
             @csrf 
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
                 <div class="lg:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-8 bg-white p-6 rounded-lg shadow-md">
@@ -10,39 +10,39 @@
                         <div class="space-y-4">
                             <div>
                                 <label for="full_name" class="block text-sm font-medium text-gray-700">Full Name</label>
-                                <input type="text" name="full_name" id="full_name" autocomplete="name" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                                <input type="text" name="shipping_full_name" id="full_name" autocomplete="name" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
                             </div>
                             <div>
                                 <label for="email" class="block text-sm font-medium text-gray-700">Email Address</label>
-                                <input type="email" name="email" id="email" autocomplete="email" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                                <input type="email" name="shipping_email" id="email" autocomplete="email" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
                             </div>
 
                             <div>
                                 <label for="address_line_1" class="block text-sm font-medium text-gray-700">Street Address Line 1</label>
-                                <input type="text" name="address_line_1" id="address_line_1" autocomplete="street-address" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                                <input type="text" name="shipping_address_line1" id="address_line_1" autocomplete="street-address" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
                             </div>
                             <div>
                                 <label for="address_line_2" class="block text-sm font-medium text-gray-700">Street Address Line 2 (Optional)</label>
-                                <input type="text" name="address_line_2" id="address_line_2" autocomplete="address-line2" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                                <input type="text" name="shipping_address_line2" id="address_line_2" autocomplete="address-line2" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
                             </div>
                             <div>
                                 <label for="city" class="block text-sm font-medium text-gray-700">City</label>
-                                <input type="text" name="city" id="city" autocomplete="address-level2" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                                <input type="text" name="shipping_city" id="city" autocomplete="address-level2" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
                             </div>
                             <div class="flex flex-col sm:flex-row gap-4">
                                 <div class="flex-1"> 
                                     <label for="state" class="block text-sm font-medium text-gray-700">State / Province</label>
-                                    <input type="text" name="state" id="state" autocomplete="address-level1" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                                    <input type="text" name="shipping_state_province" id="state" autocomplete="address-level1" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
                                 </div>
                                 
                                 <div class="flex-1"> 
                                     <label for="zip" class="block text-sm font-medium text-gray-700">Zip / Postal Code</label>
-                                    <input type="text" name="zip" id="zip" autocomplete="postal-code" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                                    <input type="text" name="shipping_zip_postal_code" id="zip" autocomplete="postal-code" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
                                 </div>
                             </div>
                             <div>
                                 <label for="country" class="block text-sm font-medium text-gray-700">Country</label>
-                                <select id="country" name="country" autocomplete="country-name" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                                <select id="country" name="shipping_country" autocomplete="country-name" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
                                     <option value="">Select Country</option>
                                     <option value="US">United States</option>
                                     <option value="CA">Canada</option>
@@ -66,7 +66,7 @@
                                     </label>
                                 </div>
                                 <div class="flex items-center">
-                                    <input id="payment_on_delivery" name="payment_method" type="radio" value="on_delivery" x-model="selectedPaymentMethod" class="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300">
+                                    <input id="payment_on_delivery" name="payment_method" type="radio" value="On Delivery" x-model="selectedPaymentMethod" class="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300">
                                     <label for="payment_on_delivery" class="ml-3 block text-sm font-medium text-gray-700">
                                         On Delivery
                                     </label>
