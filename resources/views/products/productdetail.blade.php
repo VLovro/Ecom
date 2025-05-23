@@ -37,7 +37,7 @@
    <div x-data="{ selectedSize: null }" class="mt-6">
   <h2 class="text-lg font-medium text-gray-900">Size</h2>
 
-  <div class="mt-2 flex space-x-2">
+  <div class="mt-2 flex space-x-2" id="size_buttons-container">
     @foreach($product->sizes as $size)
       <button
         type="button"
@@ -45,7 +45,9 @@
         :class="selectedSize === {{ $size->id }}
                 ? 'bg-blue-600 text-white'
                 : 'border text-gray-700 hover:bg-gray-100'" 
-        class="px-4 py-2 rounded-full text-sm transition"
+        class="px-4 py-2 rounded-full text-sm transition size-button"
+        data-size-id = "{{ $size->id }}"
+         data-stock="{{ $size->pivot->stock }}"
       >
         {{ $size->label }}
       </button>
@@ -67,12 +69,12 @@
       <div class="inline-flex items-center border rounded-full border-black bg-blue-700 overflow-hidden h-14">
         <button type="button" id="decrement-qty" class="px-4 text-white">–</button>
         <input
-          type="text"
+          type="number"
+          min="1"
           name="qty"
           value="1"
           readonly
           id="quantity-input"
-          data-stock="{{ $product->stock }}"
           class="w-12 text-center border-l border-r bg-blue-700 text-white focus:outline-none"
         />
         <button type="button" id="increment-qty" class="px-4 text-white">+</button>
@@ -81,6 +83,7 @@
 
     <button
       type="submit"
+      id="add-to-cart-button"
       :disabled="!selectedSize"
       class="flex-none bg-blue-600 text-white font-medium rounded-full h-14 px-8 flex items-center justify-center hover:bg-blue-800 transition disabled:opacity-50"
     >
@@ -106,61 +109,135 @@
   </button>
   </div>
 </div>
+  <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const sizeButtons = document.querySelectorAll('.size-button');
+                const quantityInput = document.getElementById('quantity-input');
+                const decrementButton = document.getElementById('decrement-qty');
+                const incrementButton = document.getElementById('increment-qty');
+                const addToCartButton = document.getElementById('add-to-cart-button');
+                function updateQuantityMax(selectedButton = null) {
+                    let availableStock = 0;
+                    let selectedSizeId = null;
 
-<script>
-  const decrementButton = document.getElementById('decrement-qty');
-  const quantityInput = document.getElementById('quantity-input');
-  const incrementButton = document.getElementById('increment-qty');
-
-  let StockValue = quantityInput.getAttribute('data-stock');
-  const MaxStock = parseInt(StockValue);
-
-  decrementButton.addEventListener('click', function(){
-    let currentValueText = quantityInput.value;
-    let currentValue = parseInt(currentValueText);
-
-    if(currentValue > 1){
-      currentValue--;
-      quantityInput.value = currentValue;
-    } else {
-      alert('Minimum quantity is 1');
-    }
-
-  });
-
-   incrementButton.addEventListener('click', function(){
-    let currentValueText = quantityInput.value;
-    let currentValue = parseInt(currentValueText);
-    let potentialNewValue = currentValue + 1;
-    if(potentialNewValue <= MaxStock){
-      quantityInput.value = potentialNewValue;
-    } else {
-      alert('Maximum quantity is ' + MaxStock);
-    }
-
-  });
-// --- Dio za toast notifikaciju --- //
-
-   document.addEventListener('DOMContentLoaded', function() {
-                    const toastNotification = document.getElementById('toast-notification');
-                    const toastMessageSpan = document.getElementById('toast-message');
-                    const flashSuccessInput = document.getElementById('flash-success');
-                    if (flashSuccessInput && flashSuccessInput.value) {
-                       
-                        toastMessageSpan.textContent = flashSuccessInput.value;
-                        toastNotification.classList.remove('opacity-0', 'pointer-events-none');
-                        toastNotification.classList.add('opacity-100');
-
-                      
-                        setTimeout(function() {
-                            toastNotification.classList.remove('opacity-100');
-                            toastNotification.classList.add('opacity-0', 'pointer-events-none');
-                        }, 3000); 
+                    if (selectedButton) {
+                        selectedSizeId = selectedButton.dataset.sizeId;
+                        availableStock = parseInt(selectedButton.dataset.stock);
+                        console.log('updateQuantityMax called by click. Selected Size ID:', selectedSizeId, 'Stock:', availableStock);
+                    } else {
+                        const hiddenSizeInput = document.querySelector('input[name="size_id"]');
+                        if (hiddenSizeInput && hiddenSizeInput.value) {
+                            selectedSizeId = hiddenSizeInput.value;
+                            const preSelectedButton = document.querySelector(`.size-button[data-size-id="${selectedSizeId}"]`);
+                            if (preSelectedButton) {
+                                availableStock = parseInt(preSelectedButton.dataset.stock);
+                                console.log('updateQuantityMax called on load with pre-selected size. Size ID:', selectedSizeId, 'Stock:', availableStock);
+                            } else {
+                                console.log('updateQuantityMax called on load, hidden size input has value but no matching button found.');
+                            }
+                        } else {
+                            console.log('updateQuantityMax called on load, no size selected yet.');
+                        }
                     }
 
+         
+                    if (!selectedSizeId) {
+                        quantityInput.setAttribute('max', 1);
+                        quantityInput.value = 1; 
+                        addToCartButton.disabled = true;
+                        console.log('No size selected. Quantity max set to 1, Add to Cart disabled.');
+                        return;
+                    }
+
+      
+                    quantityInput.setAttribute('max', availableStock);
+                    console.log('Quantity input max set to:', quantityInput.getAttribute('max'));
+
+
+                 
+                    if (parseInt(quantityInput.value) > availableStock) {
+                        quantityInput.value = availableStock > 0 ? availableStock : 1;
+                        console.log('Quantity adjusted to:', quantityInput.value, 'due to new max.');
+                    }
+
+ 
+                    if (availableStock === 0) {
+                        quantityInput.value = 1; 
+                        addToCartButton.disabled = true; 
+                        console.log('Out of stock for this size. Add to Cart disabled.');
+                      
+                    } else {
+                        addToCartButton.disabled = false; 
+                        console.log('Stock available. Add to Cart enabled.');
+                    }
+                }
+                sizeButtons.forEach(button => {
+                    button.addEventListener('click', function() {
+                        updateQuantityMax(this); 
+                    });
+                });
+                updateQuantityMax();
+                decrementButton.addEventListener('click', function() {
+                    let currentValue = parseInt(quantityInput.value);
+                    console.log('Decrement clicked. Current value:', currentValue);
+                    if (currentValue > 1) {
+                        quantityInput.value = currentValue - 1;
+                        console.log('New quantity:', quantityInput.value);
+                    } else {
+                        console.log('Minimum quantity is 1');
+          
+                    }
                 });
 
-</script>
+                incrementButton.addEventListener('click', function() {
+                    let currentValue = parseInt(quantityInput.value);
+                    const maxStock = parseInt(quantityInput.getAttribute('max'));
+                    let potentialNewValue = currentValue + 1;
+                    console.log('Increment clicked. Current value:', currentValue, 'Max Stock:', maxStock, 'Potential New Value:', potentialNewValue);
+
+                    if (potentialNewValue <= maxStock) {
+                        quantityInput.value = potentialNewValue;
+                        console.log('New quantity:', quantityInput.value);
+                    } else {
+                        console.log('Maximum quantity is ' + maxStock);
+                 
+                    }
+                });
+
+       
+                quantityInput.addEventListener('input', function() {
+                    const max = parseInt(quantityInput.getAttribute('max'));
+                    const min = parseInt(quantityInput.getAttribute('min')); 
+                    let typedValue = parseInt(quantityInput.value);
+                    console.log('Quantity input changed. Typed value:', typedValue, 'Min:', min, 'Max:', max);
+
+
+                    if (isNaN(typedValue) || typedValue < min) {
+                        quantityInput.value = min; 
+                        console.log('Quantity adjusted to min:', quantityInput.value);
+                    } else if (typedValue > max) {
+                        quantityInput.value = max; 
+                        console.log('Quantity adjusted to max:', quantityInput.value);
+                    }
+                });
+
+                // Za toast notifikaciju //
+                const toastNotification = document.getElementById('toast-notification');
+                const toastMessageSpan = document.getElementById('toast-message');
+                const flashSuccessInput = document.getElementById('flash-success');
+
+                if (flashSuccessInput && flashSuccessInput.value) {
+                    toastMessageSpan.textContent = flashSuccessInput.value;
+                    toastNotification.classList.remove('opacity-0', 'pointer-events-none');
+                    toastNotification.classList.add('opacity-100');
+
+                    setTimeout(function() {
+                        toastNotification.classList.remove('opacity-100');
+                        toastNotification.classList.add('opacity-0', 'pointer-events-none');
+                    }, 3000);
+                }
+            });
+        </script>
     
   </div>
 </x-layout>
